@@ -1,0 +1,6 @@
+@FixTimeBack_HostAddress = http://localhost:5280
+
+GET {{FixTimeBack_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
