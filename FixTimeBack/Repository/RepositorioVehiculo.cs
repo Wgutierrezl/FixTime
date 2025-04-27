@@ -1,11 +1,12 @@
 ﻿using FixTimeBack.Data;
+using FixTimeBack.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using TixTimeModels.Modelos;
 using TixTimeModels.ModelosDTO;
 
-namespace FixTimeBack.Interfaces
+namespace FixTimeBack.Repository
 {
-    public class RepositorioVehiculo : IServiciosVehiculo
+    public class RepositorioVehiculo : IVehiculoService
     {
         private readonly DataContext _context;
         public RepositorioVehiculo(DataContext context)
@@ -15,13 +16,13 @@ namespace FixTimeBack.Interfaces
         public async Task<Vehiculo> ActualizaInformacionVehiculo(Vehiculo vehiculo, VehiculoDTO vehiculoDTO)
         {
             vehiculo.Marca = vehiculoDTO.Marca;
-            vehiculo.Modelo=vehiculoDTO.Modelo;
+            vehiculo.Modelo = vehiculoDTO.Modelo;
             vehiculo.Año = vehiculoDTO.Año;
             vehiculo.ProblemaDescripcion = vehiculoDTO.ProblemaDescripcion;
 
             if (!string.IsNullOrWhiteSpace(vehiculoDTO.ClienteID))
             {
-                vehiculo.ClienteID=vehiculoDTO.ClienteID;
+                vehiculo.ClienteID = vehiculoDTO.ClienteID;
             }
 
             _context.Entry(vehiculo).State = EntityState.Modified;

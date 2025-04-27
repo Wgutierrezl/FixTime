@@ -11,9 +11,9 @@ namespace FixTimeBack.Controllers
     [ApiController]
     public class CitasController : ControllerBase
     {
-        private IServiciosCitas _servicecitas;
+        private ICitasService _servicecitas;
 
-        public CitasController(IServiciosCitas servicecitas)
+        public CitasController(ICitasService servicecitas)
         {
             _servicecitas=servicecitas;
         }

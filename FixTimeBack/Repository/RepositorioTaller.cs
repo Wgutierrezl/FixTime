@@ -1,25 +1,26 @@
 ﻿using FixTimeBack.Data;
+using FixTimeBack.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using TixTimeModels.Modelos;
 using TixTimeModels.ModelosDTO;
 
-namespace FixTimeBack.Interfaces
+namespace FixTimeBack.Repository
 {
-    public class RepositorioTaller : IServiciosTaller
+    public class RepositorioTaller : ITallerService
     {
         private readonly DataContext _context;
         public RepositorioTaller(DataContext context)
         {
-            _context=context;
+            _context = context;
         }
         public async Task<Taller> ActualizarTaller(Taller taller, TallerDTO tallerDTO)
         {
             taller.Nombre = tallerDTO.Nombre;
-            taller.Ubicacion=tallerDTO.Ubicacion;
+            taller.Ubicacion = tallerDTO.Ubicacion;
             taller.HorarioAtencion = tallerDTO.HorarioAtencion;
-            taller.AdministradorID=tallerDTO.AdministradorID;
+            taller.AdministradorID = tallerDTO.AdministradorID;
 
-            _context.Entry(taller).State=EntityState.Modified;
+            _context.Entry(taller).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return taller;
         }
@@ -53,7 +54,7 @@ namespace FixTimeBack.Interfaces
         public async Task<List<Taller>> ObtenerTalleresPorAdministrador(string Administradorid)
         {
             return await _context.Taller.Where(e => e.AdministradorID.ToLower() == Administradorid.ToLower()).ToListAsync();
-            
+
         }
 
         public async Task<List<Taller>> ObtenerTallerPorUbicacion(string Ubicacion)

@@ -3,7 +3,7 @@ using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Interfaces
 {
-    public interface IServicioServicios
+    public interface IServicioService
     {
         Task<Servicio> AgregarServicios(Servicio servicios);
         Task<Servicio> ActualizarServicio(Servicio servicios,ServiciosDTO serviciosDTO);

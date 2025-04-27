@@ -3,7 +3,7 @@ using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Interfaces
 {
-    public interface IServiciosVehiculo
+    public interface IVehiculoService
     {
         Task<Vehiculo> AgregarVehiculo(Vehiculo vehiculo);
         Task<Vehiculo> ActualizaInformacionVehiculo(Vehiculo vehiculo,VehiculoDTO vehiculoDTO);

@@ -14,9 +14,9 @@ namespace FixTimeBack.Controllers
     [ApiController]
     public class ServicioController : ControllerBase
     {
-        private readonly IServicioServicios _services;
+        private readonly IServicioService _services;
 
-        public ServicioController(IServicioServicios services)
+        public ServicioController(IServicioService services)
         {
             _services=services;
         }

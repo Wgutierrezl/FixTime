@@ -12,8 +12,8 @@ namespace FixTimeBack.Controllers
     [ApiController]
     public class TallerController : ControllerBase
     {
-        private readonly IServiciosTaller _tallerservice;
-        public TallerController(IServiciosTaller tallerservices)
+        private readonly ITallerService _tallerservice;
+        public TallerController(ITallerService tallerservices)
         {
             _tallerservice = tallerservices;
         }

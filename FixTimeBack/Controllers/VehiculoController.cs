@@ -13,8 +13,8 @@ namespace FixTimeBack.Controllers
     [ApiController]
     public class VehiculoController : ControllerBase
     {
-        private readonly IServiciosVehiculo _vehiculoservices;
-        public VehiculoController(IServiciosVehiculo vehiculoservices)
+        private readonly IVehiculoService _vehiculoservices;
+        public VehiculoController(IVehiculoService vehiculoservices)
         {
             _vehiculoservices = vehiculoservices;
         }

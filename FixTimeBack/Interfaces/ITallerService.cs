@@ -3,7 +3,7 @@ using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Interfaces
 {
-    public interface IServiciosTaller
+    public interface ITallerService
     {
         Task<Taller> AgregarTaller(TallerDTO tallerDTO);
         Task<Taller> ActualizarTaller(Taller taller, TallerDTO tallerDTO);

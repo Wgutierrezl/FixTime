@@ -3,7 +3,7 @@ using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Interfaces
 {
-    public interface IServiciosCitas
+    public interface ICitasService
     {
         Task<Cita> AgregarCita(Cita cita);
         Task<Cita> ActualizarCita(Cita cita,CitaDTO citaDTO);

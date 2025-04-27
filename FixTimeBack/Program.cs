@@ -1,6 +1,8 @@
 using FixTimeBack.Custom;
 using FixTimeBack.Data;
 using FixTimeBack.Interfaces;
+using FixTimeBack.Repository;
+using FixTimeBack.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -74,11 +76,15 @@ builder.Services.AddAuthentication(config =>
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddSingleton<Utilidades>();
-builder.Services.AddScoped<IServicioUsuarios, RepositorioUsuarios>();
-builder.Services.AddScoped<IServiciosTaller,RepositorioTaller>();
-builder.Services.AddScoped<IServiciosVehiculo,RepositorioVehiculo>();
-builder.Services.AddScoped<IServicioServicios, RepositorioServicios>();
-builder.Services.AddScoped<IServiciosCitas, RepositorioCitas>();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+builder.Services.AddScoped<IUsuarioRepository, RepositorioUsuarios>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+builder.Services.AddScoped<ICitasRepository, RepositorioCitas>();
+builder.Services.AddScoped<ICitasService, CitasService>();
 
 var app = builder.Build();
 
