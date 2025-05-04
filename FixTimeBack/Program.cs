@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,6 +95,11 @@ builder.Services.AddScoped<IServicioService, ServiciosService>();
 
 builder.Services.AddScoped<IVehiculoRepository, RepositorioVehiculo>();
 builder.Services.AddScoped<IVehiculoService, VehiculoService>();
+
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<EmailSettings>>().Value);
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 var app = builder.Build();
