@@ -13,13 +13,10 @@ using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-
-//Construir el servicio de swagger para poder tener la autorizacion como parametro
+// Swagger configuración con autorización
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "FixTime API", Version = "v1" });
@@ -52,11 +49,13 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+// JWT Authentication
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(config =>
+})
+.AddJwtBearer(config =>
 {
     config.RequireHttpsMetadata = false;
     config.SaveToken = true;
@@ -70,41 +69,43 @@ builder.Services.AddAuthentication(config =>
         IssuerSigningKey = new SymmetricSecurityKey
         (Encoding.UTF8.GetBytes(builder.Configuration["jwt:key"]!))
     };
-}
+});
 
+// CORS (se configura ANTES de .Build())
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000",
+        policy => policy
+            .WithOrigins("http://127.0.0.1:3000", "http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 
-);
-
+// DB, servicios e inyecciones
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnection"));
 builder.Services.AddSingleton<Utilidades>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
-
 builder.Services.AddScoped<IUsuarioRepository, RepositorioUsuarios>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-
 builder.Services.AddScoped<ICitasRepository, RepositorioCitas>();
 builder.Services.AddScoped<ICitasService, CitasService>();
-
 builder.Services.AddScoped<ITallerRepository, RepositorioTaller>();
 builder.Services.AddScoped<ITallerService, TallerService>();
-
 builder.Services.AddScoped<IServicioRepository, RepositorioServicios>();
 builder.Services.AddScoped<IServicioService, ServiciosService>();
-
 builder.Services.AddScoped<IVehiculoRepository, RepositorioVehiculo>();
 builder.Services.AddScoped<IVehiculoService, VehiculoService>();
-
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<EmailSettings>>().Value);
 builder.Services.AddScoped<IEmailService, EmailService>();
 
-
+// Construcción de la app
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -113,14 +114,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Usa la política de CORS
+app.UseCors("AllowLocalhost3000");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .SetIsOriginAllowed(origin => true)
-    .AllowCredentials());
-
 app.Run();
