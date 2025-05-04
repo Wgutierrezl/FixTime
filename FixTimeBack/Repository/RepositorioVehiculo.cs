@@ -1,50 +1,44 @@
 ﻿using FixTimeBack.Data;
 using FixTimeBack.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using TixTimeModels.Modelos;
 using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Repository
 {
-    public class RepositorioVehiculo : IVehiculoService
+    public class RepositorioVehiculo : IVehiculoRepository
     {
         private readonly DataContext _context;
         public RepositorioVehiculo(DataContext context)
         {
             _context = context;
         }
-        public async Task<Vehiculo> ActualizaInformacionVehiculo(Vehiculo vehiculo, VehiculoDTO vehiculoDTO)
+
+        public async Task AddVehicule(Vehiculo vehiculo)
         {
-            vehiculo.Marca = vehiculoDTO.Marca;
-            vehiculo.Modelo = vehiculoDTO.Modelo;
-            vehiculo.Año = vehiculoDTO.Año;
-            vehiculo.ProblemaDescripcion = vehiculoDTO.ProblemaDescripcion;
-
-            if (!string.IsNullOrWhiteSpace(vehiculoDTO.ClienteID))
-            {
-                vehiculo.ClienteID = vehiculoDTO.ClienteID;
-            }
-
-            _context.Entry(vehiculo).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return vehiculo;
+            await _context.Vehiculo.AddAsync(vehiculo);
         }
 
-        public async Task<Vehiculo> AgregarVehiculo(Vehiculo vehiculo)
-        {
-            _context.Vehiculo.Add(vehiculo);
-            await _context.SaveChangesAsync();
-            return vehiculo;
-        }
-
-        public async Task<List<Vehiculo>> ObtenerVehiculosRegistradosClienteID(string UsuarioID)
-        {
-            return await _context.Vehiculo.Where(e => e.ClienteID.ToLower() == UsuarioID.ToLower()).ToListAsync();
-        }
-
-        public async Task<Vehiculo> ObtenerVehiculoPorId(int id)
+        public async Task<Vehiculo> GetVehiculeById(int id)
         {
             return await _context.Vehiculo.FindAsync(id);
+        }
+
+        public async Task<List<Vehiculo>> GetVehiculeByUserId(string userId)
+        {
+            return await _context.Vehiculo.Where(e => e.ClienteID.ToLower() == userId.ToLower()).ToListAsync();
+        }
+
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public Task UpdateVehicule(Vehiculo vehiculo)
+        {
+            _context.Entry(vehiculo).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
     }
 }

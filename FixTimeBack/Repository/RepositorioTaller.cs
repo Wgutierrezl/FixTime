@@ -6,60 +6,49 @@ using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Repository
 {
-    public class RepositorioTaller : ITallerService
+    public class RepositorioTaller : ITallerRepository
     {
         private readonly DataContext _context;
         public RepositorioTaller(DataContext context)
         {
             _context = context;
         }
-        public async Task<Taller> ActualizarTaller(Taller taller, TallerDTO tallerDTO)
-        {
-            taller.Nombre = tallerDTO.Nombre;
-            taller.Ubicacion = tallerDTO.Ubicacion;
-            taller.HorarioAtencion = tallerDTO.HorarioAtencion;
-            taller.AdministradorID = tallerDTO.AdministradorID;
 
-            _context.Entry(taller).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return taller;
+        public async Task AddGarage(Taller taller)
+        {
+            await _context.Taller.AddAsync(taller);
         }
 
-        public async Task<Taller> AgregarTaller(TallerDTO tallerDTO)
-        {
-            var taller = new Taller
-            {
-                Nombre = tallerDTO.Nombre,
-                Ubicacion = tallerDTO.Ubicacion,
-                HorarioAtencion = tallerDTO.HorarioAtencion,
-                AdministradorID = tallerDTO.AdministradorID
-
-            };
-
-            _context.Taller.Add(taller);
-            await _context.SaveChangesAsync();
-            return taller;
-        }
-
-        public async Task<Taller> ObtenerTaller(int tallerid)
-        {
-            return await _context.Taller.FindAsync(tallerid);
-        }
-
-        public async Task<List<Taller>> ObtenerTalleres()
+        public async Task<List<Taller>> GetAllGarages()
         {
             return await _context.Taller.ToListAsync();
         }
 
-        public async Task<List<Taller>> ObtenerTalleresPorAdministrador(string Administradorid)
+        public async Task<List<Taller>> GetGarageByAdmin(string userid)
         {
-            return await _context.Taller.Where(e => e.AdministradorID.ToLower() == Administradorid.ToLower()).ToListAsync();
+            return await _context.Taller.Where(e=> e.AdministradorID== userid).ToListAsync();
 
         }
 
-        public async Task<List<Taller>> ObtenerTallerPorUbicacion(string Ubicacion)
+        public async Task<Taller> GetGarageById(int id)
         {
-            return await _context.Taller.Where(e => e.Ubicacion.ToLower() == Ubicacion.ToLower()).ToListAsync();
+            return await _context.Taller.FindAsync(id);
+        }
+
+        public async Task<List<Taller>> GetGarageByLocation(string location)
+        {
+            return await _context.Taller.Where(e => e.Ubicacion == location).ToListAsync();
+        }
+
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public Task UpdateGarage(Taller taller)
+        {
+            _context.Entry(taller).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
     }
 }

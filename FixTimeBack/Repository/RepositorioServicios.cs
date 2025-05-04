@@ -7,41 +7,44 @@ using TixTimeModels.ModelosDTO;
 
 namespace FixTimeBack.Repository
 {
-    public class RepositorioServicios : IServicioService
+    public class RepositorioServicios : IServicioRepository
     {
+
         private readonly DataContext _context;
 
         public RepositorioServicios(DataContext context)
         {
-            _context = context;
+            _context = context;   
         }
-        public async Task<Servicio> ActualizarServicio(Servicio servicios, ServiciosDTO serviciosDTO)
+        public async Task AddService(Servicio servicio)
         {
-            servicios.Nombre = serviciosDTO.Nombre;
-            servicios.Precio = serviciosDTO.Precio;
-            servicios.Descripcion = serviciosDTO.Descripcion;
-            servicios.TallerId = serviciosDTO.TallerId ?? null;
-
-            _context.Entry(servicios).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return servicios;
+            await _context.Servicio.AddAsync(servicio);
         }
 
-        public async Task<Servicio> AgregarServicios(Servicio servicios)
+        public async Task<List<Servicio>> GetServiceByGarageId(int garageId)
         {
-            _context.Servicio.Add(servicios);
-            await _context.SaveChangesAsync();
-            return servicios;
+            return await _context.Servicio.Where(e=> e.TallerId==garageId).ToListAsync();
         }
 
-        public async Task<Servicio> ObtenerServicioPorId(int id)
+        public async Task<Servicio> GetServiceById(int id)
         {
             return await _context.Servicio.FindAsync(id);
         }
 
-        public async Task<List<Servicio>> ObtenerServiciosPorTallerId(int TallerId)
+        public async Task<List<Servicio>> GetServices()
         {
-            return await _context.Servicio.Where(e => e.TallerId == TallerId).ToListAsync();
+            return await _context.Servicio.ToListAsync();
+        }
+
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public Task UpdateService(Servicio servicio)
+        {
+            _context.Entry(servicio).State = EntityState.Modified;
+            return Task.CompletedTask;
         }
     }
 }

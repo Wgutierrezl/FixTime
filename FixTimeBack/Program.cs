@@ -86,6 +86,16 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICitasRepository, RepositorioCitas>();
 builder.Services.AddScoped<ICitasService, CitasService>();
 
+builder.Services.AddScoped<ITallerRepository, RepositorioTaller>();
+builder.Services.AddScoped<ITallerService, TallerService>();
+
+builder.Services.AddScoped<IServicioRepository, RepositorioServicios>();
+builder.Services.AddScoped<IServicioService, ServiciosService>();
+
+builder.Services.AddScoped<IVehiculoRepository, RepositorioVehiculo>();
+builder.Services.AddScoped<IVehiculoService, VehiculoService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
