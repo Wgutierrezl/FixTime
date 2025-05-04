@@ -7,10 +7,14 @@ namespace FixTimeBack.Service
     public class CitasService : ICitasService
     {
         private readonly ICitasRepository _repo;
+        private readonly IEmailService _emailService;
+        private readonly IUsuarioRepository _userservice;
 
-        public CitasService(ICitasRepository repo)
+        public CitasService(ICitasRepository repo, IEmailService emailService, IUsuarioRepository userservice)
         {
-            _repo=repo;
+            _repo = repo;
+            _emailService = emailService;
+            _userservice = userservice; 
         }
         public async Task<Cita> ActualizarCita(Cita cita, CitaDTO citaDTO)
         {
@@ -43,6 +47,13 @@ namespace FixTimeBack.Service
             await _repo.AddAppointment(cita);
             await _repo.SaveChanges();
 
+            var email = await FindEmailByUserId(cita.ClienteId);
+
+            string subject = $"{cita.ClienteId} Se ha agendado correctamente tu cita";
+            string body = "Tu cita quedo correctamente agendada en el taller";
+
+            await _emailService.SendEmailAsync(email, subject, body);
+            
             return cita;
         }
 
@@ -69,6 +80,12 @@ namespace FixTimeBack.Service
         public async Task<List<Cita>> ConsultarCitasPorTallerID(int TallerID)
         {
             return await _repo.GetAppointmentByGarageId(TallerID);
+        }
+
+        private async Task<string> FindEmailByUserId(string userid)
+        {
+            var user=await _userservice.GetProfile(userid);
+            return user.CorreoElectronico!;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FixTimeBack.Custom;
 using FixTimeBack.Interfaces;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime.CompilerServices;
 using TixTimeModels.Modelos;
 using TixTimeModels.ModelosDTO;
 
@@ -95,7 +96,8 @@ namespace FixTimeBack.Service
 
             usuario.CorreoElectronico = usuarioDTO.CorreoElectronico;
             usuario.Telefono = usuarioDTO.Telefono;
-            usuario.Direccion = usuarioDTO.Direccion; 
+            usuario.Direccion = usuarioDTO.Direccion;
+            usuario.TipoUsuario = string.IsNullOrWhiteSpace(usuarioDTO.TipoUsuario) ? usuario.TipoUsuario : usuarioDTO.TipoUsuario;
 
             if (!string.IsNullOrEmpty(usuarioDTO.Contrasena))
             {
