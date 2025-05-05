@@ -12,5 +12,7 @@ namespace TixTimeModels.ModelosDTO
         public string? Ubicacion { get; set; }
         public string? HorarioAtencion { get; set; }
         public string? AdministradorID { get; set; }
+        public float? Latitud { get; set; }
+        public float? Longitud { get; set; }
     }
 }

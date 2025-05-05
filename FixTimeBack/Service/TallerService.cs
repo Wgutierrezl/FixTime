@@ -18,6 +18,8 @@ namespace FixTimeBack.Service
             taller.Nombre = tallerDTO.Nombre;
             taller.Ubicacion = tallerDTO.Ubicacion;
             taller.HorarioAtencion = tallerDTO.HorarioAtencion;
+            taller.Latitud = tallerDTO.Latitud;
+            taller.Longitud = tallerDTO.Longitud;
 
             await _repo.UpdateGarage(taller);
             await _repo.SaveChanges();
@@ -33,8 +35,11 @@ namespace FixTimeBack.Service
                 Ubicacion = tallerDTO.Ubicacion,
                 HorarioAtencion = tallerDTO.HorarioAtencion,
                 AdministradorID = tallerDTO.AdministradorID,
-
+                Latitud = tallerDTO.Latitud,
+                Longitud=tallerDTO.Longitud
+                
             };
+
 
             await _repo.AddGarage(taller);
             await _repo.SaveChanges();

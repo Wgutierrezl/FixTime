@@ -60,7 +60,7 @@ namespace FixTimeBack.Controllers
 
 
         [Authorize(Roles ="Cliente,Administrador")]
-        [HttpGet("ObtenerServiciosPorTallerID({tallerid}")]
+        [HttpGet("ObtenerServiciosPorTallerID/{tallerid}")]
         public async Task<ActionResult<IEnumerable<Servicio>>> ObtenerServicioPorTallerId(int tallerid)
         {
             var servicios = await _services.ObtenerServiciosPorTallerId(tallerid);
