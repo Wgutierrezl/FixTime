@@ -19,16 +19,29 @@ namespace FixTimeBack.Controllers
         }
 
 
-        [Authorize(Roles ="Cliente")]
+        [Authorize(Roles ="Cliente,Administrador")]
         [HttpPost("AgregarNuevaCita")]
-        public async Task<ActionResult<Cita>> AgregarUnaCita([FromBody] Cita cita)
+        public async Task<ActionResult<Cita>> AgregarUnaCita([FromBody] CitaDTO dto)
         {
-            if (cita == null)
+            if (dto == null)
             {
                 return BadRequest("Debes de completar todos los campos");
             }
 
-            var citacreada=await _servicecitas.AgregarCita(cita);
+            Console.WriteLine($"DTO recibido: {System.Text.Json.JsonSerializer.Serialize(dto)}");
+
+            var cita = new Cita
+            {
+                ClienteId = dto.ClienteId,
+                TallerId = dto.TallerId,
+                ServicioId = dto.ServicioId,
+                VehiculoId = dto.VehiculoId,
+                FechaHora = dto.FechaHora,
+                Estado = dto.Estado,
+                RecepcionistaId = dto.RecepcionistaId
+            };
+
+            var citacreada = await _servicecitas.AgregarCita(cita);
             if (citacreada.CitaId != 0)
             {
                 return Ok(new { Message = "Cita agregada correctamente", Cita = citacreada });

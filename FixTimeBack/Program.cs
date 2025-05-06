@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Swagger configuración con autorización
+// Swagger configuraciï¿½n con autorizaciï¿½n
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "FixTime API", Version = "v1" });
@@ -76,7 +76,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost3000",
         policy => policy
-            .WithOrigins("http://127.0.0.1:3000", "http://localhost:3000")
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -102,7 +102,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<EmailSettings>>().Value);
 builder.Services.AddScoped<IEmailService, EmailService>();
 
-// Construcción de la app
+// Construcciï¿½n de la app
 var app = builder.Build();
 
 // Middleware pipeline
@@ -114,7 +114,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Usa la política de CORS
+// Usa la polï¿½tica de CORS
 app.UseCors("AllowLocalhost3000");
 
 app.UseAuthentication();

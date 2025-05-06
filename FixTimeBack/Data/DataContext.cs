@@ -17,7 +17,20 @@ namespace FixTimeBack.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Cita>()
+                .HasOne(c => c.Taller)
+                .WithMany() // o .WithMany(t => t.Citas) si tu modelo Taller lo tiene
+                .HasForeignKey(c => c.TallerId);
+
+            modelBuilder.Entity<Cita>()
+                .HasOne(c => c.Vehiculo)
+                .WithMany() // o .WithMany(v => v.Citas)
+                .HasForeignKey(c => c.VehiculoId);
+
+            modelBuilder.Entity<Cita>()
+                .HasOne(c => c.Servicio)
+                .WithMany() // o .WithMany(s => s.Citas)
+                .HasForeignKey(c => c.ServicioId);
         }
     }
 }

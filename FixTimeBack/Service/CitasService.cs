@@ -9,22 +9,30 @@ namespace FixTimeBack.Service
         private readonly ICitasRepository _repo;
         private readonly IEmailService _emailService;
         private readonly IUsuarioRepository _userservice;
+        private readonly IServicioRepository _servicioRepository;
+        private readonly ITallerRepository _tallerRepository;
+        private readonly IVehiculoRepository _vehiculoRepository;
 
-        public CitasService(ICitasRepository repo, IEmailService emailService, IUsuarioRepository userservice)
+        public CitasService(ICitasRepository repo, IEmailService emailService, IUsuarioRepository userservice,
+            IServicioRepository servicioRepository, ITallerRepository tallerRepository, IVehiculoRepository vehiculoRepository)
         {
             _repo = repo;
             _emailService = emailService;
-            _userservice = userservice; 
+            _userservice = userservice;
+            _servicioRepository = servicioRepository;
+            _tallerRepository = tallerRepository;
+            _vehiculoRepository = vehiculoRepository;
         }
+
         public async Task<Cita> ActualizarCita(Cita cita, CitaDTO citaDTO)
         {
-            cita.ServicioId= citaDTO.ServicioId;
-            cita.VehiculoId= citaDTO.VehiculoId;
-            cita.ClienteId= citaDTO.ClienteId;
+            cita.ServicioId = citaDTO.ServicioId;
+            cita.VehiculoId = citaDTO.VehiculoId;
+            cita.ClienteId = citaDTO.ClienteId;
             cita.FechaHora = citaDTO.FechaHora;
             cita.Estado = citaDTO.Estado;
-            cita.TallerId=citaDTO.TallerId;
-            cita.RecepcionistaId=citaDTO.RecepcionistaId;
+            cita.TallerId = citaDTO.TallerId;
+            cita.RecepcionistaId = citaDTO.RecepcionistaId;
 
             await _repo.UpdateAppoinment(cita);
             await _repo.SaveChanges();
@@ -48,12 +56,27 @@ namespace FixTimeBack.Service
             await _repo.SaveChanges();
 
             var email = await FindEmailByUserId(cita.ClienteId);
+            var usuario = await _userservice.GetProfile(cita.ClienteId);
+            var servicio = await _servicioRepository.GetServiceById(cita.ServicioId!.Value);
+            var taller = await _tallerRepository.GetGarageById(cita.TallerId!.Value ); 
+            var vehiculo = await _vehiculoRepository.GetVehiculeById(cita.VehiculoId!.Value);
 
-            string subject = $"{cita.ClienteId} Se ha agendado correctamente tu cita";
+            string emailTemplate =
+                await System.IO.File.ReadAllTextAsync("EmailTemplates/EmailBookingConfirm.html");
+
+            emailTemplate = emailTemplate
+                .Replace("{NOMBRE_CLIENTE}", usuario.NombreCompleto)
+                .Replace("{FECHA_HORA}", cita.FechaHora.ToString("f"))
+                .Replace("{SERVICIO}", servicio.Nombre)
+                .Replace("{TALLER}", taller.Nombre)
+                .Replace("{VEHICULO}", $"{vehiculo.Marca} {vehiculo.Modelo}")
+                .Replace("{ESTADO}", cita.Estado);
+
+            string subject = $"{usuario.NombreCompleto} Se ha agendado correctamente tu cita";
             string body = "Tu cita quedo correctamente agendada en el taller";
 
-            await _emailService.SendEmailAsync(email, subject, body);
-            
+            await _emailService.SendEmailAsync(email, subject, emailTemplate, true);
+
             return cita;
         }
 
@@ -84,7 +107,7 @@ namespace FixTimeBack.Service
 
         private async Task<string> FindEmailByUserId(string userid)
         {
-            var user=await _userservice.GetProfile(userid);
+            var user = await _userservice.GetProfile(userid);
             return user.CorreoElectronico!;
         }
     }

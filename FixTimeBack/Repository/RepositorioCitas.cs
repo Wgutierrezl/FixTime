@@ -43,8 +43,12 @@ namespace FixTimeBack.Repository
 
         public async Task<List<Cita>> GetAppointmentByUserId(string userId)
         {
-            return await _context.Cita.Where(e => e.ClienteId.ToLower() == userId.ToLower()).ToListAsync();
-
+            return await _context.Cita
+                .Where(e => e.ClienteId.ToLower() == userId.ToLower())
+                .Include(e => e.Taller)
+                .Include(e => e.Vehiculo)
+                .Include(e => e.Servicio)
+                .ToListAsync();
         }
 
         public async Task SaveChanges()

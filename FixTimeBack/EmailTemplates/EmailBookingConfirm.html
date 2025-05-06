@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Cita</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            margin: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .header h2 {
+            color: #007bff;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .details p {
+            line-height: 1.6;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2>¡Cita Agendada!</h2>
+        <p>Hola <strong>{NOMBRE_CLIENTE}</strong>, tu cita ha sido confirmada.</p>
+    </div>
+    <div class="details">
+        <p><strong>Fecha y hora:</strong> {FECHA_HORA}</p>
+        <p><strong>Servicio:</strong> {SERVICIO}</p>
+        <p><strong>Taller:</strong> {TALLER}</p>
+        <p><strong>Vehículo:</strong> {VEHICULO}</p>
+        <p><strong>Estado:</strong> {ESTADO}</p>
+    </div>
+    <div class="footer">
+        <p>Gracias por confiar en nosotros. Te esperamos.</p>
+        <p>Si tienes alguna duda, contáctanos.</p>
+    </div>
+</div>
+</body>
+</html>
