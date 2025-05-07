@@ -38,9 +38,12 @@ namespace FixTimeBack.Repository
 
         public async Task<List<Cita>> GetAppointmentByRecepcionistId(string recepcionistid)
         {
-            return await _context.Cita.Where(e => e.RecepcionistaId.ToLower() == recepcionistid.ToLower()).ToListAsync();
-        }
-
+            return await _context.Cita.Where(e => e.RecepcionistaId.ToLower() == recepcionistid.ToLower()).Include(e => e.Taller)
+                .Include(e => e.Vehiculo)
+                .Include(e => e.Servicio)
+                .ToListAsync();
+        } 
+ 
         public async Task<List<Cita>> GetAppointmentByUserId(string userId)
         {
             return await _context.Cita
