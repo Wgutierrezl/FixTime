@@ -15,9 +15,10 @@ namespace FixTimeBack.Repository
             _context = context;
         }
 
-        public async Task AddVehicule(Vehiculo vehiculo)
+        public async Task<Vehiculo> AddVehicule(Vehiculo vehiculo)
         {
             await _context.Vehiculo.AddAsync(vehiculo);
+            return vehiculo;
         }
 
         public async Task<Vehiculo> GetVehiculeById(int id)

@@ -27,12 +27,23 @@ namespace FixTimeBack.Service
             return vehiculo;
         }
 
-        public async Task<Vehiculo> AgregarVehiculo(Vehiculo vehiculo)
+        public async Task<Vehiculo> AgregarVehiculo(VehiculoDTO vehiculodto)
         {
-            await _repo.AddVehicule(vehiculo);
+            var vehicle = new Vehiculo
+            {
+                Marca = vehiculodto.Marca,
+                Modelo = vehiculodto.Modelo,
+                Año = vehiculodto.Año,
+                ProblemaDescripcion = vehiculodto.ProblemaDescripcion,
+                ClienteID = vehiculodto.ClienteID
+            };
+
+            var carro=await _repo.AddVehicule(vehicle);
             await _repo.SaveChanges();
 
-            return vehiculo;
+            return carro;
+
+            
         }
 
         public async Task<Vehiculo> ObtenerVehiculoPorId(int id)

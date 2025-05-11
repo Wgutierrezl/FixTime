@@ -22,14 +22,14 @@ namespace FixTimeBack.Controllers
 
         [Authorize(Roles = "Cliente")]
         [HttpPost("AgregarVehiculo")]
-        public async Task<ActionResult<Vehiculo>> AgregarVehiculo([FromBody] Vehiculo vehiculo)
+        public async Task<ActionResult<Vehiculo>> AgregarVehiculo([FromBody] VehiculoDTO vehiculoDTO)
         {
-            if (vehiculo == null)
+            if (vehiculoDTO == null)
             {
                 return BadRequest("Debes de llenar todos los campos");
             }
 
-            var vehiculocreado = await _vehiculoservices.AgregarVehiculo(vehiculo);
+            var vehiculocreado = await _vehiculoservices.AgregarVehiculo(vehiculoDTO);
             if (vehiculocreado.VehiculoID != 0)
             {
                 return Ok(new { Messahe = "Vehiculo creado correctamente", Vehiculo = vehiculocreado });
