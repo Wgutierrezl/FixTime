@@ -87,6 +87,8 @@ builder.Services.AddSingleton<Utilidades>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IDecodeToken, DecodeToken>();
+
 builder.Services.AddScoped<IUsuarioRepository, RepositorioUsuarios>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<ICitasRepository, RepositorioCitas>();
@@ -97,6 +99,7 @@ builder.Services.AddScoped<IServicioRepository, RepositorioServicios>();
 builder.Services.AddScoped<IServicioService, ServiciosService>();
 builder.Services.AddScoped<IVehiculoRepository, RepositorioVehiculo>();
 builder.Services.AddScoped<IVehiculoService, VehiculoService>();
+
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<IOptions<EmailSettings>>().Value);

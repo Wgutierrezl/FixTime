@@ -98,5 +98,38 @@ namespace FixTimeBack.Controllers
             return Ok(userupdate);
         }
 
+        [AllowAnonymous]
+        [HttpPost("RecuperarContraseña")]
+        public async Task<IActionResult> RecuperarMiContraseña([FromBody] ForgotPasswordRequest email)
+        {
+            if(email == null)
+            {
+                return BadRequest("Debes de ingresar un correo valido");
+            }
+
+            var user=await UserService.ForgotMyPassword(email);
+            if(user == null)
+            {
+                return BadRequest("El correo que ingresaste no existe");
+            }
+
+            return Ok(new { Mesage = "Token para recuperar contraseña", Sesion = user });
+        }
+
+        [AllowAnonymous]
+        [HttpPut("IngresarNuevaContraseña")]
+        public async Task<IActionResult> IngresarNuevaContraseña([FromBody] ResetPasswordRequest resetPasswordRequest)
+        {
+           
+            var user_find=await UserService.ResetMyPassword(resetPasswordRequest);
+
+            if (user_find == null)
+            {
+                return BadRequest("Tu token ha expirado");
+            }
+
+            return Ok(user_find);
+        }
+
     }
 }

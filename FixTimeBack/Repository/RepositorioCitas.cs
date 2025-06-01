@@ -33,7 +33,12 @@ namespace FixTimeBack.Repository
 
         public async Task<Cita> GetAppointmentById(int id)
         {
-            return await _context.Cita.FindAsync(id);
+            //return await _context.Cita.FindAsync(id);
+            return await _context.Cita.Where(e => e.CitaId == id)
+                .Include(e => e.Taller)
+                .Include(e => e.Servicio)
+                .Include(e => e.Vehiculo)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<List<Cita>> GetAppointmentByRecepcionistId(string recepcionistid)

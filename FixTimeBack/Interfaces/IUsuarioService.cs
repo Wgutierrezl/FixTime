@@ -12,5 +12,7 @@ namespace FixTimeBack.Interfaces
         Task<Usuario> GetProfileUser(string UsuarioID);
         Task<Usuario> UpdateProfileUser(Usuario usuario,UsuarioDTO usuarioDTO);
         Task<Usuario> UpdatePasswordUser(Usuario usuario, ContraseñaDTO contraseñaDTO);
+        Task<SesionDTO> ForgotMyPassword(ForgotPasswordRequest email);
+        Task<Usuario> ResetMyPassword(ResetPasswordRequest reset);
     }
 }
