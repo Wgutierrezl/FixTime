@@ -47,6 +47,9 @@ namespace FixTimeBack.Service
             await _repo.UpdateAppoinment(cita);
             await _repo.SaveChanges();
 
+
+
+
             return cita;
         }
 

@@ -113,7 +113,7 @@ namespace FixTimeBack.Controllers
                 return BadRequest("El correo que ingresaste no existe");
             }
 
-            return Ok(new { Mesage = "Token para recuperar contraseña", Sesion = user });
+            return Ok(user);
         }
 
         [AllowAnonymous]
