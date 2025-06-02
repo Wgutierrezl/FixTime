@@ -69,7 +69,7 @@ namespace FixTimeBack.Controllers
             return BadRequest("No se ha podido actualizar la cita");
         }
 
-        [Authorize(Roles ="Recepcionista")]
+        [Authorize(Roles ="Administrador,Recepcionista")]
         [HttpPut("ActualizarEstadoCita/{id}")]
         public async Task<ActionResult<Cita>> ActualizarEstadoCita(int id, [FromBody] EstadoDTO estadoDTO)
         {

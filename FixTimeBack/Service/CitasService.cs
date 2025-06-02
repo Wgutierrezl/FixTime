@@ -1,4 +1,5 @@
 ﻿using FixTimeBack.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TixTimeModels.Modelos;
 using TixTimeModels.ModelosDTO;
 
@@ -47,7 +48,25 @@ namespace FixTimeBack.Service
             await _repo.UpdateAppoinment(cita);
             await _repo.SaveChanges();
 
+            var usuario=await _userservice.GetProfile(cita.ClienteId);
+            var email = usuario.CorreoElectronico;
 
+
+            string emailTemplate =
+               await System.IO.File.ReadAllTextAsync("EmailTemplates/EmailBookingChangeState.html");
+
+            emailTemplate = emailTemplate
+                .Replace("{NOMBRE_CLIENTE}", usuario.NombreCompleto)
+                .Replace("{FECHA_HORA}", cita.FechaHora.ToString("f"))
+                .Replace("{SERVICIO}", cita.Servicio.Nombre)
+                .Replace("{TALLER}", cita.Taller.Nombre)
+                .Replace("{VEHICULO}", $"{cita.Vehiculo.Marca} {cita.Vehiculo.Modelo}")
+                .Replace("{ESTADO}", cita.Estado);
+
+            string subject = $"{usuario.NombreCompleto} Se ha agendado correctamente tu cita";
+            string body = "Tu cita quedo correctamente agendada en el taller";
+
+            await _emailService.SendEmailAsync(email, subject, emailTemplate, true);
 
 
             return cita;

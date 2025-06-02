@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Cita</title>
+    <style type="text/css">
+        /**
+          * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
+          */
+        @media screen {
+        @font-face {
+            font-family: 'Source Sans Pro';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
+        }
+        @font-face {
+            font-family: 'Source Sans Pro';
+            font-style: normal;
+            font-weight: 700;
+            src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format('woff');
+        }
+        }
+        /**
+          * Avoid browser level font resizing.
+          * 1. Windows Mobile
+          * 2. iOS / OSX
+          */
+        body, table, td, a {
+            -ms-text-size-adjust: 100%;
+            /* 1 */
+            -webkit-text-size-adjust: 100%;/* 2 */
+        }
+        /**
+          * Remove extra space added to tables and cells in Outlook.
+          */
+        table, td {
+            mso-table-rspace: 0pt;
+            mso-table-lspace: 0pt;
+        }
+        /**
+          * Better fluid images in Internet Explorer.
+          */
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+        /**
+          * Remove blue links for iOS devices.
+          */
+        a[x-apple-data-detectors] {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+        /**
+          * Fix centering issues in Android 4.4.
+          */
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+        body {
+            width: 100% !important;
+            height: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        /**
+          * Collapse table borders to avoid space between cells.
+          */
+        table {
+            border-collapse: collapse !important;
+        }
+        a {
+            color: black;
+        }
+        img {
+            height: auto;
+            line-height: 100%;
+            text-decoration: none;
+            border: 0;
+            outline: none;
+        }
+        </style>
+</head>
+<body style="background-color: #e9ecef;">
+    <!-- start preheader -->
+    <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;"> ¡Estás a punto de comprar tu nueva <?php echo $data['titulo']; ?>! </div>
+    <!-- end preheader --> 
+    <!-- start body -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    
+    <!-- start logo -->
+    <tr>
+      <td align="center" bgcolor="#e9ecef"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 700px;">
+          <tr>
+            <td align="center" valign="top" style="padding: 16px 24px;"><img src="https://i.imgur.com/ivWrE5y.png" alt="Logo" border="0" width="243" style="display: block; width: 243px; max-width: 243px; min-width: 243px;"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <!-- end logo --> 
+    
+    <!-- start hero -->
+    <tr>
+      <td align="center" bgcolor="#e9ecef"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 700px;">
+          <tr>
+            <td bgcolor="#ffffff" align="left"><img src="https://i.imgur.com/S4LOSfQ.jpeg" alt="Welcome" width="600" style="display: block; width: 100%; max-width: 100%;"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#e9ecef"><!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+        
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 700px;">
+          
+          <!-- start copy -->
+          <tr>
+            <td bgcolor="#ffffff" align="left" style="padding: 24px; color: #6f6f6f; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;"><h2 style="margin: 0; font-weight: 400;  font-weight: bolder; line-height: 25.8px; color: #00406f;">¡PERFECTO, EL ESTADO DE TU CITA SE HA ACTUALIZADO CORRECTAMENTE!</h2>
+              <p> El estado de tu cita ha sido actualizado exitosamente para el <strong>{FECHA_HORA}</strong> en la tienda  <strong>{TALLER}</strong> para el servicio <strong>{SERVICIO}</strong> de tu <strong>{VEHICULO}</strong>. Recuerda seguir las indicaciones mencionadas en este correo y llegar 15 minutos antes de la hora programada.</p></td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#D2C7BA"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 700px;">
+                <tr>
+                  <td align="left" bgcolor="#ffffff" style="padding:0 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;"><p style="margin: 0; color: #6f6f6f" >
+                      Aquí encontrarás el resumen de tu cita, con el estado actualizado por parte del administrador <br>
+                      si tienes alguna duda no dudes en contactarnos.</p></td>
+                </tr>
+                <!-- end copy --> 
+                
+                <!-- start receipt table -->
+                <tr>
+                  <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;"><table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#f4f4f4">
+                      <tr>
+                        <td align="left" bgcolor="#f4f4f4" width="30%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;     vertical-align: middle; display: flex; width: 100%;"><img style="padding-right: 11px; line-height: 0; margin: 0;" src="https://i.imgur.com/BSv8QFX.png" alt=""><strong>Fecha y hora</strong></td>
+                        <td align="left" bgcolor="#f4f4f4" width="65%" style="padding: 12px;  padding-left: 10px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">{FECHA_HORA}</td>
+                      </tr>
+                      <tr>
+                        <td align="left" bgcolor="#f4f4f4" width="30%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;   vertical-align: middle; display: flex; width: 100%;"><img style="padding-right: 11px; line-height: 0; margin: 0;" src="https://i.imgur.com/aUUvkd3.png" alt=""><strong>Servicio</strong></td>
+                        <td align="left" bgcolor="#f4f4f4" width="60%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">{SERVICIO}</td>
+                      </tr>
+                      <tr>
+                        <td align="left" bgcolor="#f4f4f4" width="30%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;   vertical-align: middle; display: flex; width: 100%;"><img style="padding-right: 11px; line-height: 0; margin: 0;" src="https://i.imgur.com/BSv8QFX.png" alt=""><strong>Taller</strong></td>
+                        <td align="left" bgcolor="#f4f4f4" width="60%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">{TALLER}</td>
+                      </tr>
+                      <tr>
+                        <td align="left" bgcolor="#f4f4f4" width="30%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;   vertical-align: middle; display: flex; width: 100%;"><img style="padding-right: 11px; line-height: 0; margin: 0;" src="https://i.imgur.com/X9GZTv3.png" alt=""><strong>Vehículo</strong></td>
+                        <td align="left" bgcolor="#f4f4f4" width="60%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">{VEHICULO}</td>
+                      </tr>
+                      <tr>
+                        <td align="left" bgcolor="#f4f4f4" width="30%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;   vertical-align: middle; display: flex; width: 100%;"><img style="padding-right: 11px; line-height: 0; margin: 0;" src="https://i.imgur.com/dRSsSiF.png" alt=""><strong>Estado</strong></td>
+                        <td align="left" bgcolor="#f4f4f4" width="60%" style="padding: 12px;font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">{ESTADO}</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <!-- end reeipt table --> 
+                <!-- start copy -->
+                <tr>
+                  <td bgcolor="#ffffff" align="left" style="padding: 24px; color: #6f6f6f; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;"><h2 style="margin: 0; font-weight: 400; padding-left: 30px;font-weight: bolder; line-height: 25.8px; color: #00406f;">PARA TENER EN CUENTA</h2>
+                    <ul>
+                      <li>Confirma la fecha, hora y ubicación del centro de servicio.</li>
+                      <li>Asegúrate de llegar con al menos 10 minutos de anticipación para evitar retrasos.</li>
+                      <li>Se recomienda llevar el vehículo en condiciones limpias para facilitar la inspección.</li>
+                      <li>Mantén suficiente combustible en caso de que se requieran pruebas de funcionamiento.</li>
+                    </ul></td>
+                </tr>
+              </table>
+              
+              <!--[if (gte mso 9)|(IE)]>
+        </td>
+      </tr>
+    </table>
+    <![endif]--></td>
+          </tr>
+          <!-- end copy block --> 
+          <!-- start footer -->
+          <tr>
+            <td align="center" bgcolor="#f4f4f4"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 700px;">
+                <tr>
+                  <td align="center" bgcolor="#f4f4f4"><img src="https://i.imgur.com/a8ohM0J.jpeg" alt="Welcome" width="600" style="display: block; width: 100%; max-width: 100%;"></td>
+                </tr>
+              </table></td>
+          </tr>
+          <!-- end footer -->
+        </table>
+        
+        <!-- end body -->
+    </body>
+<!-- <body>
+<div class="container">
+    <div class="header">
+        <h2>¡Cita Agendada!</h2>
+        <p>Hola <strong>{NOMBRE_CLIENTE}</strong>, tu cita ha sido confirmada.</p>
+    </div>
+    <div class="details">
+        <p><strong>Fecha y hora:</strong> {FECHA_HORA}</p>
+        <p><strong>Servicio:</strong> {SERVICIO}</p>
+        <p><strong>Taller:</strong> {TALLER}</p>
+        <p><strong>Vehículo:</strong> {VEHICULO}</p>
+        <p><strong>Estado:</strong> {ESTADO}</p>
+    </div>
+    <div class="footer">
+        <p>Gracias por confiar en nosotros. Te esperamos.</p>
+        <p>Si tienes alguna duda, contáctanos.</p>
+    </div>
+</div> 
+</body> -->
+</html>
